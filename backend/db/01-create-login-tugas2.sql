@@ -5,9 +5,9 @@
 USE master;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = 'hilma')
+IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = 'yusuf')
 BEGIN
-    CREATE LOGIN hilma
+    CREATE LOGIN yusuf
         WITH PASSWORD = N'GANTI_DENGAN_PASSWORD_KAMU',
              DEFAULT_DATABASE = review_kantin;
 END
@@ -16,17 +16,17 @@ GO
 USE review_kantin;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'hilma')
+IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'yusuf')
 BEGIN
-    CREATE USER hilma FOR LOGIN hilma;
+    CREATE USER yusuf FOR LOGIN yusuf;
 END
 GO
 
-ALTER ROLE db_datareader ADD MEMBER hilma;
-ALTER ROLE db_datawriter ADD MEMBER hilma;
+ALTER ROLE db_datareader ADD MEMBER yusuf;
+ALTER ROLE db_datawriter ADD MEMBER yusuf;
 GO
 
 SELECT name, type_desc, authentication_type_desc
 FROM sys.database_principals
-WHERE name = 'hilma';
+WHERE name = 'yusuf';
 GO
