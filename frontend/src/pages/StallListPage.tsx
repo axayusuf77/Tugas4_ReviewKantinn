@@ -35,7 +35,10 @@ export function StallListPage() {
   const [syncedSearch, setSyncedSearch] = useState(search)
   if (search !== syncedSearch) {
     setSyncedSearch(search)
-    setSearchInput(search)
+    // Jangan menimpa ketikan yang hanya beda spasi di ujung, kalau tidak spasi yang baru
+    // diketik hilang saat pengguna berhenti sejenak. Ganti hanya kalau URL berubah dari luar
+    // (tombol back, hapus filter).
+    if (search !== searchInput.trim()) setSearchInput(search)
   }
 
   const [pendingDelete, setPendingDelete] = useState<Stall | null>(null)
@@ -118,18 +121,18 @@ export function StallListPage() {
 
   return (
     <>
-      <div className="page-head">
-        <div>
+      <section className="hero">
+        <div className="hero-text">
           <h1 className="page-title">Warung di kantin</h1>
           <p className="lede">Cari warung, lihat ratingnya, lalu buka detailnya.</p>
         </div>
         {canCreateStall(user) && (
-          <Link to="/stalls/new" className="btn btn-primary">
+          <Link to="/stalls/new" className="btn btn-hero">
             <Plus aria-hidden="true" size={18} />
             Tambah warung
           </Link>
         )}
-      </div>
+      </section>
 
       <form className="toolbar" role="search" onSubmit={(event) => event.preventDefault()}>
         <div className="search">
@@ -144,26 +147,34 @@ export function StallListPage() {
           />
         </div>
 
-        <select
-          className="input"
-          aria-label="Filter kategori"
-          value={category}
-          onChange={(event) => updateParams({ category: event.target.value, page: null })}
-        >
-          <option value="">Semua kategori</option>
-          {categoryOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-
         {filtersActive && (
           <button type="button" className="btn" onClick={resetFilters}>
             Hapus filter
           </button>
         )}
       </form>
+
+      <div className="chips" role="group" aria-label="Filter kategori">
+        <button
+          type="button"
+          className="chip"
+          aria-pressed={category === ''}
+          onClick={() => updateParams({ category: null, page: null })}
+        >
+          Semua
+        </button>
+        {categoryOptions.map((option) => (
+          <button
+            key={option}
+            type="button"
+            className="chip"
+            aria-pressed={category === option}
+            onClick={() => updateParams({ category: option, page: null })}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
 
       {stalls.loading && <LoadingRows rows={PAGE_SIZE} />}
 

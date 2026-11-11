@@ -1,4 +1,4 @@
-import { MapPin, Pencil, Trash2 } from 'lucide-react'
+import { MapPin, Pencil, Trash2, Utensils } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { canDeleteStall, canEditStall } from '../lib/roles'
 import type { Stall, User } from '../types'
@@ -10,20 +10,23 @@ interface StallRowProps {
   onDelete: (stall: Stall) => void
 }
 
-/** Satu baris di papan menu: nama, garis titik-titik, lalu rating. */
+/** Satu kartu warung: blok warna di atas, lalu nama, rating, lokasi, dan kategori. */
 export function StallRow({ stall, user, onDelete }: StallRowProps) {
   const showEdit = canEditStall(user, stall)
   const showDelete = canDeleteStall(user)
 
   return (
     <li className="row">
+      <div className="row-thumb" data-tone={stall.id % 5} aria-hidden="true">
+        <Utensils size={34} />
+        {stall.isPopular && <span className="tag tag-pop row-badge">Terlaris</span>}
+      </div>
+
       <div className="row-body">
         <Link to={`/stalls/${stall.id}`} className="row-line">
           <span className="row-name">{stall.name}</span>
-          {stall.isPopular && <span className="tag tag-pop">Populer</span>}
-          <span className="leader" aria-hidden="true" />
-          <Rating value={stall.avgRating} count={stall.reviewCount} />
         </Link>
+        <Rating value={stall.avgRating} count={stall.reviewCount} />
 
         <p className="row-sub">
           {stall.location && (

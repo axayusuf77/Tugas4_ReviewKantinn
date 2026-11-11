@@ -117,8 +117,11 @@ export function LoadingRows({ rows = 5 }: { rows?: number }) {
     <div className="board" aria-busy="true" role="status" aria-label="Memuat daftar warung">
       {Array.from({ length: rows }, (_, index) => (
         <div key={index} className="row row-skeleton">
-          <div className="skeleton skeleton-title" />
-          <div className="skeleton skeleton-sub" />
+          <div className="skeleton skeleton-thumb" />
+          <div className="skeleton-body">
+            <div className="skeleton skeleton-title" />
+            <div className="skeleton skeleton-sub" />
+          </div>
         </div>
       ))}
     </div>

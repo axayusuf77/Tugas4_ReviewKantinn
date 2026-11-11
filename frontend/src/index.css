@@ -1,17 +1,17 @@
 /* Review Kantin
-   Bahasa visual: papan menu warung. Hijau ubin, kuning kunyit, merah sambal.
-   Satu hal yang dibuat mencolok: papan menu berbingkai ganda dengan garis titik-titik. */
+   Bahasa visual: krem, cokelat tua, terakota, dan kuning kunyit. Blok "Tema hangat"
+   di paling bawah menimpa gaya papan menu lama untuk daftar warung. */
 
 :root {
-  --tile: #e8eee9;
-  --tile-line: rgba(13, 90, 76, 0.07);
-  --paper: #fafbf8;
-  --ink: #16201e;
-  --ink-soft: #4b5a56;
-  --line: #c4d0ca;
-  --green: #0d5a4c;
-  --green-deep: #083f36;
-  --yellow: #f2b825;
+  --tile: #fffbf5;
+  --tile-line: transparent;
+  --paper: #ffffff;
+  --ink: #291d18;
+  --ink-soft: #6b5a50;
+  --line: #e7d9cc;
+  --green: #c2410c;
+  --green-deep: #9a3412;
+  --yellow: #f5b93c;
   --sambal: #b42318;
   --sambal-deep: #7a1a12;
   --sambal-soft: #fbe9e7;
@@ -23,7 +23,7 @@
   --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sign: 'Bowlby One', 'Arial Black', Impact, sans-serif;
 
-  --radius: 4px;
+  --radius: 10px;
   --page-width: 64rem;
 }
 
@@ -302,7 +302,7 @@ a {
 }
 
 .btn:hover:not(:disabled) {
-  background: #eef3ef;
+  background: #fdf1e7;
 }
 
 .btn:disabled {
@@ -570,7 +570,7 @@ a {
 .skeleton {
   height: 1rem;
   border-radius: 3px;
-  background: linear-gradient(90deg, var(--line), #e4ebe6, var(--line));
+  background: linear-gradient(90deg, var(--line), #f8f0e7, var(--line));
   background-size: 200% 100%;
   animation: shimmer 1.4s linear infinite;
 }
@@ -974,7 +974,7 @@ a {
 }
 
 .dialog::backdrop {
-  background: rgba(8, 31, 27, 0.6);
+  background: rgba(41, 29, 24, 0.6);
 }
 
 .dialog-body {
@@ -1043,4 +1043,301 @@ a {
   .spin {
     animation: none;
   }
+}
+
+/* =====================================================================
+   Tema hangat (v2): krem, cokelat tua, dan terakota.
+   Daftar warung tampil sebagai kartu, kategori sebagai chip, dan bagian
+   atas halaman memakai banner. Blok ini menimpa aturan lama di atasnya.
+   ===================================================================== */
+
+body {
+  background-image: none;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 2rem 2rem;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #9a3412 0%, #c2410c 45%, #ea580c 100%);
+  color: #fff;
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.hero::before {
+  width: 15rem;
+  height: 15rem;
+  right: -4rem;
+  top: -6rem;
+}
+
+.hero::after {
+  width: 9rem;
+  height: 9rem;
+  right: 9rem;
+  bottom: -5rem;
+  background: rgba(245, 185, 60, 0.28);
+}
+
+.hero-text,
+.hero .btn {
+  position: relative;
+  z-index: 1;
+}
+
+.hero .page-title {
+  color: #fff;
+}
+
+.hero .lede {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.btn-hero {
+  border-color: var(--yellow);
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.btn-hero:hover:not(:disabled) {
+  background: #ffd052;
+}
+
+.toolbar {
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-bottom: 0.9rem;
+}
+
+.input {
+  border: 2px solid #d9c6b5;
+  border-radius: 12px;
+}
+
+.btn {
+  border-radius: 12px;
+}
+
+.chips {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.35rem;
+  overflow-x: auto;
+}
+
+.chip {
+  flex: none;
+  padding: 0.4rem 1rem;
+  border: 2px solid #d9c6b5;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--green);
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
+  gap: 1.1rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #ecdfd2;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(41, 29, 24, 0.08);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.row:last-child {
+  border-bottom: 1px solid #ecdfd2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .row:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(41, 29, 24, 0.13);
+  }
+}
+
+.row-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 6.5rem;
+  color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(135deg, #fdba74, #ea580c);
+}
+
+.row-thumb[data-tone='1'] {
+  background: linear-gradient(135deg, #fcd34d, #d97706);
+}
+
+.row-thumb[data-tone='2'] {
+  background: linear-gradient(135deg, #fca5a5, #dc2626);
+}
+
+.row-thumb[data-tone='3'] {
+  background: linear-gradient(135deg, #bef264, #65a30d);
+}
+
+.row-thumb[data-tone='4'] {
+  background: linear-gradient(135deg, #d6b49a, #92400e);
+}
+
+.row-badge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  border-radius: 999px;
+  padding: 0 0.65rem;
+}
+
+.row-body {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem 0.5rem;
+}
+
+.row-line {
+  display: block;
+}
+
+.row-name {
+  font-size: 1.1rem;
+}
+
+.leader {
+  display: none;
+}
+
+.row-sub {
+  margin: 0;
+}
+
+.row-actions {
+  margin-top: auto;
+  padding: 0.25rem 1rem 1rem;
+}
+
+.icon-btn {
+  border-radius: 10px;
+}
+
+.tag {
+  border-radius: 999px;
+}
+
+.row-skeleton {
+  gap: 0;
+}
+
+.skeleton-thumb {
+  height: 6.5rem;
+  border-radius: 0;
+  background: linear-gradient(90deg, #f1e6da, #f8f0e7, #f1e6da);
+  background-size: 200% 100%;
+}
+
+.skeleton-body {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1rem;
+}
+
+.sign {
+  border-radius: 20px;
+  background: linear-gradient(120deg, #9a3412 0%, #c2410c 60%, #ea580c 100%);
+  box-shadow: none;
+}
+
+.panel {
+  border: 1px solid #ecdfd2;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(41, 29, 24, 0.08);
+}
+
+.state {
+  border-radius: 16px;
+}
+
+@media (max-width: 40rem) {
+  .hero {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Seluruh kartu bisa diklik: tautan nama warung diperluas menutupi kartu.
+   Tombol ubah dan hapus diberi z-index supaya tetap bisa ditekan sendiri. */
+.row {
+  position: relative;
+  cursor: pointer;
+}
+
+.row-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.row-line:focus-visible {
+  outline: none;
+}
+
+.row:has(.row-line:focus-visible) {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+.row-actions {
+  position: relative;
+  z-index: 2;
+}
+
+.row-skeleton {
+  cursor: default;
 }
