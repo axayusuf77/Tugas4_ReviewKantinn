@@ -1,6 +1,7 @@
 import { LogOut, UserRound } from 'lucide-react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { Footer } from './Footer'
 import { useToast } from '../context/ToastContext'
 import { canCreateStall, ROLE_LABEL } from '../lib/roles'
 
@@ -65,9 +66,7 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">Review Kantin, tugas frontend mata kuliah RSI.</div>
-      </footer>
+      <Footer />
     </>
   )
 }
